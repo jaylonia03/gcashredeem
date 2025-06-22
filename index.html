@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GCash Redemption</title>
+    <title>GCash Rewards Redemption</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="container">
         <header>
             <div class="logo-container">
                 <img src="https://serious-studio.com/wp-content/uploads/Gcash-Brand-Identity-09a.gif" alt="GCash Logo" class="gcash-logo">
-                <h1>GCash Redemption</h1>
+                <h1>Rewards Redemption</h1>
             </div>
             <p>Enter your redemption code and GCash details to claim your reward</p>
         </header>
@@ -21,24 +21,27 @@
         <div class="redemption-form">
             <div class="form-group">
                 <label for="redeem-code">Redemption Code</label>
-                <input type="text" id="redeem-code" placeholder="Enter your redemption code">
+                <input type="text" id="redeem-code" placeholder="Enter your code (e.g. 1872HD7)">
             </div>
+            
             <div class="form-group">
                 <label for="gcash-name">GCash Name/Initial</label>
-                <input type="text" id="gcash-name" placeholder="Enter name as registered in GCash">
+                <input type="text" id="gcash-name" placeholder="Enter your name as registered in GCash">
             </div>
+            
             <div class="form-group">
                 <label for="gcash-number">GCash Account Number</label>
-                <input type="text" id="gcash-number" placeholder="09XXXXXXXXX">
+                <input type="text" id="gcash-number" placeholder="09XX XXX XXXX">
             </div>
+            
             <button id="redeem-btn" class="btn-redeem">Redeem Now</button>
         </div>
 
         <div class="info-box">
             <h3><i class="fas fa-info-circle"></i> Important Information</h3>
             <ul>
+                <li>Rewards will be sent within 1-5 minutes after verification</li>
                 <li>Make sure your GCash account is fully verified</li>
-                <li>Double check your account number before submitting</li>
                 <li>Each redemption code can only be used once per account</li>
             </ul>
         </div>
@@ -52,11 +55,9 @@
                 <i class="fas fa-check-circle"></i>
             </div>
             <h2>Redemption Successful!</h2>
-            <p class="amount-received">You will receive: <span id="reward-amount">₱0</span></p>
+            <p class="reward-amount">You will receive: <span id="amount-display">₱0</span></p>
             <p>The GCash credit will be sent to your account within 1-5 minutes.</p>
-            <div class="modal-footer">
-                <button class="btn-ok">OK</button>
-            </div>
+            <p class="note">Note: Please keep this transaction for reference.</p>
         </div>
     </div>
 
@@ -68,10 +69,7 @@
                 <i class="fas fa-exclamation-circle"></i>
             </div>
             <h2 id="error-title">Error</h2>
-            <p id="error-message">There was an error processing your redemption.</p>
-            <div class="modal-footer">
-                <button class="btn-ok">Try Again</button>
-            </div>
+            <p id="error-message">There was an issue with your redemption.</p>
         </div>
     </div>
 
