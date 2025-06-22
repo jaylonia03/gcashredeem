@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Store login state in localStorage
                 localStorage.setItem('adminLoggedIn', 'true');
                 // Redirect to dashboard
-                window.location.href = 'dashboard.html';
+                window.location.href = 'admin/dashboard.html';
             } else {
                 errorMessage.textContent = 'Invalid username or password';
                 errorMessage.style.display = 'block';
