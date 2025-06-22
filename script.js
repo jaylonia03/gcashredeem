@@ -1,42 +1,42 @@
-// Initialize data if not exists
-if (!localStorage.getItem('redemptionCodes')) {
-    const initialCodes = [
-        { code: '1872HD7', amount: 1, maxRedemptions: 5, currentRedemptions: 0 },
-        { code: 'GCASH2023', amount: 5, maxRedemptions: 10, currentRedemptions: 0 },
-        { code: 'REWARD50', amount: 50, maxRedemptions: 2, currentRedemptions: 0 }
-    ];
-    localStorage.setItem('redemptionCodes', JSON.stringify(initialCodes));
-}
-
-if (!localStorage.getItem('redemptionTransactions')) {
-    localStorage.setItem('redemptionTransactions', JSON.stringify([]));
-}
-
 document.addEventListener('DOMContentLoaded', function() {
-    const redemptionForm = document.getElementById('redemptionForm');
-    const successModal = document.getElementById('successModal');
-    const errorModal = document.getElementById('errorModal');
-    const closeModalButtons = document.querySelectorAll('.close-modal, .btn-close-modal');
-    const rewardAmountDisplay = document.getElementById('rewardAmountDisplay');
-    const transactionIdDisplay = document.getElementById('transactionId');
-    const errorTitle = document.getElementById('errorTitle');
-    const errorMessage = document.getElementById('errorMessage');
+    // Get DOM elements
+    const redeemBtn = document.getElementById('redeem-btn');
+    const redeemCodeInput = document.getElementById('redeem-code');
+    const gcashNameInput = document.getElementById('gcash-name');
+    const gcashNumberInput = document.getElementById('gcash-number');
+    const successModal = document.getElementById('success-modal');
+    const errorModal = document.getElementById('error-modal');
+    const rewardAmountSpan = document.getElementById('reward-amount');
+    const errorTitle = document.getElementById('error-title');
+    const errorMessage = document.getElementById('error-message');
+    const closeModalButtons = document.querySelectorAll('.close-modal, .btn-ok');
+
+    // Sample redemption codes data (in a real app, this would come from a database)
+    const redemptionCodes = {
+        '1872HD7': { amount: 1, maxRedemptions: 5, currentRedemptions: 0 },
+        'GCASH50': { amount: 50, maxRedemptions: 10, currentRedemptions: 5 },
+        'FREE100': { amount: 100, maxRedemptions: 3, currentRedemptions: 3 }, // Out of stock
+        'NEWUSER': { amount: 10, maxRedemptions: 100, currentRedemptions: 42 }
+    };
+
+    // Get redemption history from localStorage or initialize
+    let redemptionHistory = JSON.parse(localStorage.getItem('redemptionHistory')) || [];
 
     // Close modal function
     function closeModal(modal) {
-        modal.classList.remove('show');
+        modal.style.display = 'none';
     }
 
-    // Show modal function
-    function showModal(modal) {
-        modal.classList.add('show');
-    }
-
-    // Close modals when clicking X or close button
+    // Close modals when clicking X or OK button
     closeModalButtons.forEach(button => {
         button.addEventListener('click', function() {
-            const modal = this.closest('.modal');
-            closeModal(modal);
+            if (this.classList.contains('close-modal')) {
+                const modal = this.closest('.modal');
+                closeModal(modal);
+            } else {
+                closeModal(successModal);
+                closeModal(errorModal);
+            }
         });
     });
 
@@ -47,67 +47,83 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Form submission
-    redemptionForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const redeemCode = document.getElementById('redeemCode').value.trim();
-        const gcashName = document.getElementById('gcashName').value.trim();
-        const gcashNumber = document.getElementById('gcashNumber').value.trim();
-        
-        // Validate GCash number
+    // Redeem button click handler
+    redeemBtn.addEventListener('click', function() {
+        const redeemCode = redeemCodeInput.value.trim().toUpperCase();
+        const gcashName = gcashNameInput.value.trim();
+        const gcashNumber = gcashNumberInput.value.trim();
+
+        // Validate inputs
+        if (!redeemCode || !gcashName || !gcashNumber) {
+            showError('Missing Information', 'Please fill in all fields.');
+            return;
+        }
+
         if (!/^09\d{9}$/.test(gcashNumber)) {
-            errorTitle.textContent = 'Invalid GCash Number';
-            errorMessage.textContent = 'Please enter a valid 11-digit GCash mobile number starting with 09.';
-            showModal(errorModal);
+            showError('Invalid GCash Number', 'Please enter a valid 11-digit GCash number starting with 09.');
             return;
         }
-        
-        // Check if code exists and has remaining redemptions
-        const redemptionCodes = JSON.parse(localStorage.getItem('redemptionCodes'));
-        const codeData = redemptionCodes.find(c => c.code === redeemCode);
-        
-        if (!codeData) {
-            errorTitle.textContent = 'Invalid Code';
-            errorMessage.textContent = 'The redemption code you entered is invalid. Please check and try again.';
-            showModal(errorModal);
+
+        // Check if code exists
+        if (!redemptionCodes[redeemCode]) {
+            showError('Invalid Code', 'The redemption code you entered is invalid.');
             return;
         }
-        
+
+        const codeData = redemptionCodes[redeemCode];
+
+        // Check if code is out of stock
         if (codeData.currentRedemptions >= codeData.maxRedemptions) {
-            errorTitle.textContent = 'Code Limit Reached';
-            errorMessage.textContent = 'This redemption code has reached its maximum number of redemptions.';
-            showModal(errorModal);
+            showError('Code Expired', 'This redemption code has reached its maximum usage limit.');
             return;
         }
+
+        // Check if this number already redeemed this code
+        const alreadyRedeemed = redemptionHistory.some(redemption => 
+            redemption.code === redeemCode && redemption.gcashNumber === gcashNumber
+        );
+
+        if (alreadyRedeemed) {
+            showError('Already Redeemed', 'You have already redeemed this code with this GCash number.');
+            return;
+        }
+
+        // Process redemption
+        processRedemption(redeemCode, gcashName, gcashNumber, codeData.amount);
+    });
+
+    // Process redemption function
+    function processRedemption(code, name, number, amount) {
+        // In a real app, this would be an API call to your backend
+        redemptionCodes[code].currentRedemptions += 1;
         
-        // Create transaction
-        const transactionId = 'GC' + Date.now().toString().slice(-8);
-        const transaction = {
-            id: transactionId,
-            code: redeemCode,
-            gcashName: gcashName,
-            gcashNumber: gcashNumber,
-            amount: codeData.amount,
-            status: 'pending',
-            timestamp: new Date().toISOString()
+        // Add to redemption history
+        const redemption = {
+            code,
+            name,
+            number,
+            amount,
+            date: new Date().toISOString(),
+            status: 'pending'
         };
         
-        // Update transactions
-        const transactions = JSON.parse(localStorage.getItem('redemptionTransactions'));
-        transactions.push(transaction);
-        localStorage.setItem('redemptionTransactions', JSON.stringify(transactions));
+        redemptionHistory.push(redemption);
+        localStorage.setItem('redemptionHistory', JSON.stringify(redemptionHistory));
         
-        // Update code redemption count
-        codeData.currentRedemptions += 1;
-        localStorage.setItem('redemptionCodes', JSON.stringify(redemptionCodes));
+        // Show success
+        rewardAmountSpan.textContent = `₱${amount}`;
+        successModal.style.display = 'block';
         
-        // Show success modal
-        rewardAmountDisplay.textContent = `₱${codeData.amount.toFixed(2)}`;
-        transactionIdDisplay.textContent = transactionId;
-        showModal(successModal);
-        
-        // Reset form
-        redemptionForm.reset();
-    });
+        // Clear form
+        redeemCodeInput.value = '';
+        gcashNameInput.value = '';
+        gcashNumberInput.value = '';
+    }
+
+    // Show error function
+    function showError(title, message) {
+        errorTitle.textContent = title;
+        errorMessage.textContent = message;
+        errorModal.style.display = 'block';
+    }
 });
