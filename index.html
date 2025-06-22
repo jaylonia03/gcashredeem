@@ -3,89 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GCash Rewards Redemption</title>
+    <title>GCash Redemption</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
         <header>
             <div class="logo-container">
                 <img src="https://serious-studio.com/wp-content/uploads/Gcash-Brand-Identity-09a.gif" alt="GCash Logo" class="gcash-logo">
-                <h1>GCash Rewards</h1>
+                <h1>GCash Redemption</h1>
             </div>
-            <p>Redeem your rewards using valid redemption codes</p>
+            <p>Enter your redemption code and GCash details to claim your reward</p>
         </header>
 
-        <main>
-            <div class="card">
-                <div class="card-header">
-                    <h2>Redeem Your Reward</h2>
-                </div>
-                <div class="card-body">
-                    <form id="redemptionForm">
-                        <div class="form-group">
-                            <label for="redeemCode">Redemption Code</label>
-                            <input type="text" id="redeemCode" placeholder="Enter your redemption code" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="gcashName">GCash Account Name</label>
-                            <input type="text" id="gcashName" placeholder="Enter your GCash registered name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="gcashNumber">GCash Mobile Number</label>
-                            <input type="text" id="gcashNumber" placeholder="09XXXXXXXXX" required pattern="[0-9]{11}">
-                        </div>
-                        <button type="submit" class="btn-redeem">Redeem Now</button>
-                    </form>
-                </div>
+        <div class="redemption-form">
+            <div class="form-group">
+                <label for="redeem-code">Redemption Code</label>
+                <input type="text" id="redeem-code" placeholder="Enter your redemption code">
             </div>
-
-            <div class="info-section">
-                <div class="info-card">
-                    <i class="fas fa-info-circle"></i>
-                    <p>Make sure to enter correct GCash details to receive your reward</p>
-                </div>
+            <div class="form-group">
+                <label for="gcash-name">GCash Name/Initial</label>
+                <input type="text" id="gcash-name" placeholder="Enter name as registered in GCash">
             </div>
-        </main>
+            <div class="form-group">
+                <label for="gcash-number">GCash Account Number</label>
+                <input type="text" id="gcash-number" placeholder="09XXXXXXXXX">
+            </div>
+            <button id="redeem-btn" class="btn-redeem">Redeem Now</button>
+        </div>
 
-        <footer>
-            <p>© 2023 GCash Rewards Redemption. All rights reserved.</p>
-        </footer>
+        <div class="info-box">
+            <h3><i class="fas fa-info-circle"></i> Important Information</h3>
+            <ul>
+                <li>Make sure your GCash account is fully verified</li>
+                <li>Double check your account number before submitting</li>
+                <li>Each redemption code can only be used once per account</li>
+            </ul>
+        </div>
     </div>
 
     <!-- Success Modal -->
-    <div id="successModal" class="modal">
+    <div id="success-modal" class="modal">
         <div class="modal-content">
             <span class="close-modal">&times;</span>
-            <div class="modal-body">
-                <div class="success-icon">
-                    <i class="fas fa-check-circle"></i>
-                </div>
-                <h2>Redemption Successful!</h2>
-                <p class="reward-amount">You will receive: <span id="rewardAmountDisplay">₱0</span></p>
-                <p class="note">The GCash credit will be sent to your account within 1-5 minutes.</p>
-                <p class="transaction-id">Transaction ID: <span id="transactionId"></span></p>
-                <button class="btn-close-modal">Close</button>
+            <div class="modal-icon success">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2>Redemption Successful!</h2>
+            <p class="amount-received">You will receive: <span id="reward-amount">₱0</span></p>
+            <p>The GCash credit will be sent to your account within 1-5 minutes.</p>
+            <div class="modal-footer">
+                <button class="btn-ok">OK</button>
             </div>
         </div>
     </div>
 
     <!-- Error Modal -->
-    <div id="errorModal" class="modal">
+    <div id="error-modal" class="modal">
         <div class="modal-content">
             <span class="close-modal">&times;</span>
-            <div class="modal-body">
-                <div class="error-icon">
-                    <i class="fas fa-times-circle"></i>
-                </div>
-                <h2 id="errorTitle">Error</h2>
-                <p id="errorMessage">An error occurred during redemption.</p>
-                <button class="btn-close-modal">Close</button>
+            <div class="modal-icon error">
+                <i class="fas fa-exclamation-circle"></i>
+            </div>
+            <h2 id="error-title">Error</h2>
+            <p id="error-message">There was an error processing your redemption.</p>
+            <div class="modal-footer">
+                <button class="btn-ok">Try Again</button>
             </div>
         </div>
     </div>
 
     <script src="script.js"></script>
 </body>
-  </html>
+</html>
