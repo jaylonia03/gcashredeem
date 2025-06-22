@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GCash Redemption Admin Panel</title>
+    <link rel="stylesheet" href="admin-style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="admin-container">
+        <div class="sidebar">
+            <div class="logo-container">
+                <img src="https://serious-studio.com/wp-content/uploads/Gcash-Brand-Identity-09a.gif" alt="GCash Logo" class="gcash-logo">
+                <h2>Admin Panel</h2>
+            </div>
+            <nav>
+                <ul>
+                    <li class="active" data-tab="dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</li>
+                    <li data-tab="codes"><i class="fas fa-ticket-alt"></i> Redemption Codes</li>
+                    <li data-tab="transactions"><i class="fas fa-exchange-alt"></i> Transactions</li>
+                    <li data-tab="settings"><i class="fas fa-cog"></i> Settings</li>
+                </ul>
+            </nav>
+            <div class="logout">
+                <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="header">
+                <h1 id="tab-title">Dashboard</h1>
+                <div class="user-info">
+                    <span>Admin</span>
+                    <i class="fas fa-user-circle"></i>
+                </div>
+            </div>
+            
+            <!-- Dashboard Tab -->
+            <div id="dashboard" class="tab-content active">
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <div class="stat-icon total">
+                            <i class="fas fa-ticket-alt"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Total Codes</h3>
+                            <p id="total-codes">0</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon active">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Active Codes</h3>
+                            <p id="active-codes">0</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon redeemed">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Total Redeemed</h3>
+                            <p id="total-redeemed">0</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-card">
+                            <div class="stat-icon amount">
+                                <i class="fas fa-peso-sign"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Total Amount</h3>
+                                <p id="total-amount">₱0</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recent-transactions">
+                    <h2>Recent Transactions</h2>
+                    <table id="recent-transactions-table">
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>GCash Name</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Filled by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Redemption Codes Tab -->
+            <div id="codes" class="tab-content">
+                <div class="action-bar">
+                    <button id="add-code-btn" class="btn-primary">
+                        <i class="fas fa-plus"></i> Add New Code
+                    </button>
+                    <div class="search-box">
+                        <input type="text" id="code-search" placeholder="Search codes...">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+                
+                <table id="codes-table">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Amount</th>
+                            <th>Redemptions</th>
+                            <th>Limit</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Filled by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Transactions Tab -->
+            <div id="transactions" class="tab-content">
+                <div class="action-bar">
+                    <div class="filter-group">
+                        <label for="status-filter">Status:</label>
+                        <select id="status-filter">
+                            <option value="all">All</option>
+                            <option value="pending">Pending</option>
+                            <option value="success">Success</option>
+                        </select>
+                    </div>
+                    <div class="search-box">
+                        <input type="text" id="transaction-search" placeholder="Search transactions...">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+                
+                <table id="transactions-table">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>GCash Name</th>
+                            <th>GCash Number</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Filled by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Settings Tab -->
+            <div id="settings" class="tab-content">
+                <div class="settings-card">
+                    <h2>Admin Account</h2>
+                    <div class="form-group">
+                        <label for="admin-username">Username</label>
+                        <input type="text" id="admin-username" value="admin" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="admin-password">Password</label>
+                        <input type="password" id="admin-password" value="pass8080">
+                    </div>
+                    <button id="save-settings" class="btn-primary">Save Changes</button>
+                </div>
+                
+                <div class="settings-card">
+                    <h2>System Settings</h2>
+                    <div class="form-group">
+                        <label for="system-name">System Name</label>
+                        <input type="text" id="system-name" value="GCash Rewards Redemption">
+                    </div>
+                    <div class="form-group">
+                        <label for="default-amount">Default Amount (₱)</label>
+                        <input type="number" id="default-amount" value="1" min="1">
+                    </div>
+                    <div class="form-group">
+                        <label for="default-limit">Default Redemption Limit</label>
+                        <input type="number" id="default-limit" value="5" min="1">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Add Code Modal -->
+    <div id="add-code-modal" class="admin-modal">
+        <div class="admin-modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Add New Redemption Code</h2>
+            <div class="form-group">
+                <label for="new-code">Code</label>
+                <input type="text" id="new-code" placeholder="Enter code (e.g. 1872HD7)">
+            </div>
+            <div class="form-group">
+                <label for="new-amount">Amount (₱)</label>
+                <input type="number" id="new-amount" placeholder="Enter amount" min="1" value="1">
+            </div>
+            <div class="form-group">
+                <label for="new-limit">Redemption Limit</label>
+                <input type="number" id="new-limit" placeholder="Enter limit" min="1" value="5">
+            </div>
+            <div class="form-group">
+                <label for="new-status">Status</label>
+                <select id="new-status">
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                </select>
+            </div>
+            <button id="save-code-btn" class="btn-primary">Save Code</button>
+        </div>
+    </div>
+    
+    <!-- Confirmation Modal -->
+    <div id="confirm-modal" class="admin-modal">
+        <div class="admin-modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-icon warning">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h2 id="confirm-title">Confirm Action</h2>
+            <p id="confirm-message">Are you sure you want to perform this action?</p>
+            <div class="modal-buttons">
+                <button id="confirm-cancel" class="btn-secondary">Cancel</button>
+                <button id="confirm-ok" class="btn-primary">Confirm</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="admin-script.js"></script>
+</body>
+</html>
