@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Dashboard Page
         // Check if user is logged in
         if (localStorage.getItem('adminLoggedIn') !== 'true') {
-            window.location.href = 'index.html';
+            window.location.href = 'admin/index.html';
             return;
         }
         
