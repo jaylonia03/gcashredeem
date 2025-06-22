@@ -1,13 +1,13 @@
 :root {
-    --primary-color: #0033a0;
-    --secondary-color: #48a145;
-    --accent-color: #ffcb05;
-    --light-color: #f5f5f5;
-    --dark-color: #333;
-    --success-color: #4CAF50;
-    --error-color: #f44336;
-    --warning-color: #ff9800;
-    --info-color: #2196F3;
+    --primary: #0033a1;
+    --secondary: #48a145;
+    --accent: #ffc600;
+    --light: #f5f7fa;
+    --dark: #1a1a1a;
+    --success: #48a145;
+    --error: #e74c3c;
+    --warning: #f39c12;
+    --info: #3498db;
 }
 
 * {
@@ -18,15 +18,18 @@
 }
 
 body {
-    background-color: #f9f9f9;
-    color: var(--dark-color);
+    background-color: #f0f2f5;
+    color: var(--dark);
     line-height: 1.6;
 }
 
 .container {
     max-width: 500px;
-    margin: 0 auto;
-    padding: 20px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 51, 161, 0.1);
     animation: fadeIn 0.5s ease-in-out;
 }
 
@@ -37,99 +40,81 @@ body {
 
 header {
     text-align: center;
-    margin-bottom: 30px;
-    animation: slideDown 0.6s ease-out;
-}
-
-@keyframes slideDown {
-    from { transform: translateY(-50px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+    margin-bottom: 2rem;
 }
 
 .logo-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 15px;
+    gap: 1rem;
+    margin-bottom: 1rem;
 }
 
 .gcash-logo {
     width: 50px;
-    height: 50px;
-    margin-right: 15px;
-    border-radius: 50%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: auto;
 }
 
 h1 {
-    color: var(--primary-color);
-    font-size: 28px;
+    color: var(--primary);
+    font-size: 1.8rem;
     font-weight: 700;
 }
 
 header p {
     color: #666;
-    font-size: 14px;
+    font-size: 0.9rem;
 }
 
 .redemption-form {
-    background: white;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    margin-bottom: 20px;
-    animation: fadeInUp 0.7s ease-out;
-}
-
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
 .form-group {
-    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
+label {
     font-weight: 500;
-    color: var(--dark-color);
+    color: var(--primary);
 }
 
-.form-group input {
-    width: 100%;
+input {
     padding: 12px 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
-    transition: all 0.3s;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
 }
 
-.form-group input:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(0, 51, 160, 0.1);
+input:focus {
+    border-color: var(--primary);
     outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 51, 161, 0.2);
 }
 
 .btn-redeem {
-    width: 100%;
-    padding: 14px;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background-color: var(--primary);
     color: white;
     border: none;
-    border-radius: 5px;
-    font-size: 16px;
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    margin-top: 1rem;
 }
 
 .btn-redeem:hover {
-    background: linear-gradient(135deg, #002a80, #3d8a3a);
+    background-color: #00257a;
     transform: translateY(-2px);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 5px 15px rgba(0, 51, 161, 0.3);
 }
 
 .btn-redeem:active {
@@ -137,34 +122,34 @@ header p {
 }
 
 .info-box {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    animation: fadeIn 0.8s ease-out;
+    background-color: #f8f9fa;
+    border-left: 4px solid var(--primary);
+    padding: 1rem;
+    border-radius: 0 8px 8px 0;
+    margin-top: 2rem;
+    animation: slideIn 0.5s ease-in-out;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
 }
 
 .info-box h3 {
-    color: var(--primary-color);
-    margin-bottom: 10px;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
     display: flex;
     align-items: center;
-    font-size: 18px;
-}
-
-.info-box h3 i {
-    margin-right: 10px;
-    color: var(--secondary-color);
+    gap: 0.5rem;
 }
 
 .info-box ul {
-    padding-left: 20px;
+    padding-left: 1.5rem;
 }
 
 .info-box li {
-    margin-bottom: 8px;
-    font-size: 14px;
-    color: #555;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
 }
 
 /* Modal Styles */
@@ -183,13 +168,13 @@ header p {
 .modal-content {
     background-color: white;
     margin: 10% auto;
-    padding: 25px;
-    border-radius: 10px;
+    padding: 2rem;
+    border-radius: 15px;
     width: 90%;
     max-width: 400px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
     position: relative;
-    animation: modalSlideIn 0.4s ease-out;
+    animation: modalSlideIn 0.3s;
 }
 
 @keyframes modalSlideIn {
@@ -201,89 +186,55 @@ header p {
     position: absolute;
     top: 15px;
     right: 15px;
+    font-size: 1.5rem;
     color: #aaa;
-    font-size: 24px;
-    font-weight: bold;
     cursor: pointer;
     transition: color 0.3s;
 }
 
 .close-modal:hover {
-    color: var(--dark-color);
+    color: var(--dark);
 }
 
 .modal-icon {
-    text-align: center;
-    margin: 20px 0;
-    font-size: 60px;
+    font-size: 4rem;
+    margin-bottom: 1rem;
 }
 
 .modal-icon.success {
-    color: var(--success-color);
+    color: var(--success);
 }
 
 .modal-icon.error {
-    color: var(--error-color);
+    color: var(--error);
 }
 
-.modal h2 {
-    text-align: center;
-    margin-bottom: 15px;
-    color: var(--dark-color);
-}
-
-.modal p {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #555;
-}
-
-.amount-received {
-    font-size: 18px;
+.reward-amount {
+    font-size: 1.2rem;
     font-weight: 600;
-    margin: 20px 0;
+    margin: 1rem 0;
+    color: var(--primary);
 }
 
-#reward-amount {
-    color: var(--secondary-color);
-    font-size: 24px;
+.reward-amount span {
+    color: var(--success);
+    font-size: 1.5rem;
 }
 
-.modal-footer {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.btn-ok {
-    padding: 10px 25px;
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.btn-ok:hover {
-    background-color: #002a80;
+.note {
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 1rem;
 }
 
 /* Responsive Design */
-@media (max-width: 480px) {
+@media (max-width: 600px) {
     .container {
-        padding: 15px;
-    }
-    
-    .redemption-form, .info-box {
-        padding: 20px 15px;
+        margin: 1rem;
+        padding: 1.5rem;
     }
     
     h1 {
-        font-size: 24px;
-    }
-    
-    .modal-content {
-        margin: 20% auto;
+        font-size: 1.5rem;
     }
 }
